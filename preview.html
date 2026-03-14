@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYNC - Intimacy Tracker Preview</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .phone {
+            width: 375px;
+            height: 812px;
+            background: #fafafa;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 0 12px #1a1a1a;
+            position: relative;
+        }
+        .status-bar {
+            height: 44px;
+            background: #fafafa;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .header {
+            padding: 10px 20px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-title h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1a1a1a;
+        }
+        .header-title p {
+            font-size: 14px;
+            color: #ff6b6b;
+            font-weight: 500;
+        }
+        .lock-icon {
+            width: 40px;
+            height: 40px;
+            background: #f0f0f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+            margin: 0 20px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff6b6b;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+        .view-toggle {
+            display: flex;
+            margin: 15px 20px 0;
+            background: #f0f0f0;
+            border-radius: 12px;
+            padding: 4px;
+        }
+        .view-btn {
+            flex: 1;
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .view-btn.active {
+            background: #fff;
+            color: #ff6b6b;
+            font-weight: 600;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .timeline {
+            padding: 20px;
+            height: 480px;
+            overflow-y: auto;
+        }
+        .month-header {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+        .log-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .log-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .log-date {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+        .trash {
+            color: #ff6b6b;
+        }
+        .mood-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .mood-emoji {
+            font-size: 24px;
+        }
+        .mood-label {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .log-notes {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+        .add-btn {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #ff6b6b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(255,107,107,0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="phone">
+        <div class="status-bar">
+            <span>9:41</span>
+            <span>📶 5G 🔋</span>
+        </div>
+        
+        <div class="header">
+            <div class="header-title">
+                <h1>SYNC</h1>
+                <p>Intimacy Tracker</p>
+            </div>
+            <div class="lock-icon">🔒</div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Week Streak</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">2</div>
+                <div class="stat-label">This Week</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">8</div>
+                <div class="stat-label">This Month</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">24</div>
+                <div class="stat-label">Total</div>
+            </div>
+        </div>
+        
+        <div class="view-toggle">
+            <div class="view-btn active">Timeline</div>
+            <div class="view-btn">Calendar</div>
+        </div>
+        
+        <div class="timeline">
+            <div class="month-header">March 2026</div>
+            
+            <div class="log-card">
+                <div class="log-header">
+                    <span class="log-date">Friday, Mar 14</span>
+                    <span class="trash">🗑️</span>
+                </div>
+                <div class="mood-row">
+                    <span class="mood-emoji">🔥</span>
+                    <span class="mood-label" style="color: #ff6b6b;">Amazing</span>
+                </div>
+                <div class="log-notes">Date night was perfect. Dinner at that new Italian place, then watched the sunset together. 💕</div>
+            </div>
+            
+            <div class="log-card">
+                <div class="log-header">
+                    <span class="log-date">Tuesday, Mar 11</span>
+                    <span class="trash">🗑️</span>
+                </div>
+                <div class="mood-row">
+                    <span class="mood-emoji">❤️</span>
+                    <span class="mood-label" style="color: #4ecdc4;">Good</span>
+                </div>
+            </div>
+            
+            <div class="log-card">
+                <div class="log-header">
+                    <span class="log-date">Saturday, Mar 8</span>
+                    <span class="trash">🗑️</span>
+                </div>
+                <div class="mood-row">
+                    <span class="mood-emoji">🔥</span>
+                    <span class="mood-label" style="color: #ff6b6b;">Amazing</span>
+                </div>
+                <div class="log-notes">Weekend getaway! The cabin was so cozy. 🔥</div>
+            </div>
+            
+            <div class="month-header">February 2026</div>
+            
+            <div class="log-card">
+                <div class="log-header">
+                    <span class="log-date">Friday, Feb 14</span>
+                    <span class="trash">🗑️</span>
+                </div>
+                <div class="mood-row">
+                    <span class="mood-emoji">🔥</span>
+                    <span class="mood-label" style="color: #ff6b6b;">Amazing</span>
+                </div>
+                <div class="log-notes">Valentine's Day! Best one yet. 🌹</div>
+            </div>
+        </div>
+        
+        <div class="add-btn">+</div>
+    </div>
+</body>
+</html>

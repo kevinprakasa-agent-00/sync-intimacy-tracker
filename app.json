@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "sync-app",
-    "slug": "sync-app",
+    "name": "SYNC - Intimacy Tracker",
+    "slug": "sync-intimacy-tracker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -9,22 +9,38 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ff6b6b"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.shipit.sync",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "SYNC uses Face ID to protect your private data."
+      }
     },
     "android": {
+      "package": "com.shipit.sync",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
-      },
-      "predictiveBackGestureEnabled": false
+        "backgroundColor": "#ff6b6b",
+        "foregroundImage": "./assets/adaptive-icon.png"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-secure-store",
+        {
+          "faceIDPermission": "SYNC uses Face ID to protect your private data."
+        }
+      ],
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow SYNC to use Face ID."
+        }
+      ]
+    ]
   }
 }

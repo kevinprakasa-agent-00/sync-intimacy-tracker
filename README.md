@@ -1,98 +1,150 @@
-# SYNC 💕
+# Sync - Intimacy Tracker for Couples 💕
 
-**Private Intimacy Tracker for Couples**
+A beautifully handcrafted React Native app for couples to track their intimate moments with privacy and care.
 
-SYNC helps couples stay connected by tracking intimate moments in a completely private, secure way. No cloud storage. No data sharing. Just you, your partner, and your journey together.
+## Features
 
-## ✨ Features
+### Moment Logging
+- 8 mood types with soft, romantic colors
+- Energy level slider with heart-shaped indicators
+- Initiator tracking (You, Partner, Mutual)
+- Context tags with playful emojis
+- Private notes with textured backgrounds
+- Haptic heartbeat feedback on save
 
-### 🔒 Privacy First
-- **Biometric lock** - Face ID / Touch ID to unlock
-- **Encrypted local storage** - Data never leaves your device
-- **No cloud sync** - 100% private, period
+### Visual Timeline
+- Flow view: Polaroid-style overlapping cards
+- Calendar view: Month grid with mood-colored dots
+- Interactive day selection
 
-### 📊 Track & Visualize
-- **Log moments** with mood and notes
-- **Timeline view** - See your journey chronologically
-- **Calendar view** - Visual heatmap of connection
-- **Stats dashboard** - Weekly streaks, monthly insights
+### Insights & Stats
+- Streak counter
+- Monthly trend comparison
+- Personalized rhythm analysis
+- Pattern recognition
+- Mood distribution
 
-### 💕 Mood Tracking
-- 🔥 Amazing
-- ❤️ Good
-- 💙 Okay
-- 💤 Low
+### Privacy First
+- Biometric authentication (Face ID/Touch ID)
+- All data stored locally on device
+- Optional discreet mode
+- Auto-lock after background
+- Per-moment privacy toggles
 
-### 🔔 Gentle Reminders
-- Subtle nudges to reconnect
-- No pressure, just awareness
+### Couple Sync
+- Unique couple code generation
+- Combined timeline view
+- Mutual insights
+- Clean breakup flow
 
-## 🛠 Tech Stack
+## Tech Stack
 
-- **React Native** + **Expo**
-- **TypeScript**
-- **expo-secure-store** - Encrypted storage
-- **expo-local-authentication** - Biometric auth
-- **date-fns** - Date handling
+- React Native with Expo
+- React Navigation (Stack + Bottom Tabs)
+- Reanimated 2 for smooth animations
+- Zustand for state management
+- date-fns for date handling
+- expo-local-authentication for biometrics
+- expo-notifications for reminders
 
-## 📱 Screenshots
+## Design System
 
-| Timeline View | Calendar View | Add Entry |
-|--------------|---------------|-----------|
-| List of moments | Visual calendar | Mood picker |
+### Colors
+- **Blush Pink**: #FFB6C1 - Primary accent
+- **Peach**: #FFD4C4 - Secondary accent
+- **Warm Cream**: #FFF5F0 - Background
+- **Dusty Rose**: #D4A5A5 - Text accents
 
-## 🚀 Getting Started
+### Typography
+- **Quicksand** - Headings
+- **Inter** - Body text
+- **Caveat** - Accent/script text
 
+### Shapes
+- Large rounded corners (24-32px radius)
+- Soft shadows, no harsh lines
+- Organic blob shapes for backgrounds
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v16+)
+- Expo CLI: `npm install -g expo-cli`
+- iOS: Xcode (Mac only)
+- Android: Android Studio
+
+### Installation
+
+1. Install dependencies:
 ```bash
-# Install dependencies
+cd sync-app
 npm install
-
-# Start the app
-npx expo start
-
-# Run on iOS
-npm run ios
-
-# Run on Android
-npm run android
 ```
 
-## 💰 Monetization Strategy
+2. Add fonts:
+Download and add these fonts to `assets/fonts/`:
+- Quicksand (Regular, Light, Medium, SemiBold, Bold)
+- Inter (Regular, Medium, Bold)
+- Caveat (Regular, Bold)
 
-**Free Tier:**
-- 30 days of history
-- Basic stats
-- Biometric lock
+3. Start the development server:
+```bash
+npx expo start
+```
 
-**Pro Tier ($9.99/month):**
-- Unlimited history
-- Partner sync (end-to-end encrypted)
-- Advanced insights & trends
-- Export data
-- Custom reminders
+4. Run on device:
+- Press `i` for iOS simulator
+- Press `a` for Android emulator
+- Scan QR code with Expo Go app on physical device
 
-**MRR Math:** 200 couples × $9.99 = **$1,998/month** ✅
+### Building for Production
 
-## 🔐 Security
+```bash
+# iOS
+expo build:ios
 
-- All data stored in iOS/Android Keychain
-- Biometric authentication required on app open (optional)
-- No network requests for data
-- Partner sync uses end-to-end encryption
+# Android
+expo build:android
+```
 
-## 📝 Roadmap
+## Folder Structure
 
-- [x] Core logging functionality
-- [x] Biometric authentication
-- [x] Timeline view
-- [x] Calendar view
-- [x] Stats dashboard
-- [ ] Partner sync (encrypted P2P)
-- [ ] Export to PDF
-- [ ] Custom reminder schedules
-- [ ] Year in review
-- [ ] Widget support
+```
+sync-app/
+├── App.js                 # Main app entry with navigation
+├── app.json              # Expo configuration
+├── babel.config.js       # Babel configuration
+├── package.json          # Dependencies
+├── assets/               # Static assets
+│   ├── fonts/           # Custom fonts
+│   ├── textures/        # Paper textures
+│   └── icons/           # App icons
+└── src/
+    ├── components/      # Reusable UI components
+    │   ├── ui.js        # Core UI primitives
+    │   ├── animations.js # Animated components
+    │   ├── MoodSelector.js
+    │   ├── EnergySlider.js
+    │   ├── InitiatorPicker.js
+    │   ├── TagSelector.js
+    │   ├── TimelineCard.js
+    │   └── StatsCards.js
+    ├── screens/         # Screen components
+    │   ├── AuthScreen.js
+    │   ├── HomeScreen.js
+    │   ├── LogMomentScreen.js
+    │   ├── TimelineScreen.js
+    │   ├── InsightsScreen.js
+    │   ├── RemindersScreen.js
+    │   ├── CoupleSyncScreen.js
+    │   └── SettingsScreen.js
+    ├── context/         # State management
+    │   └── store.js     # Zustand store
+    ├── utils/           # Utilities
+    │   └── helpers.js
+    └── theme.js         # Design tokens
+```
 
----
+## License
 
-Built with ❤️ by Ship It 🚀
+MIT

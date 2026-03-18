@@ -190,8 +190,7 @@ export default function InsightsScreen() {
           <View style={styles.chartCard}
           >
             <Text style={styles.chartTitle}>🎭 Mood Distribution</Text>
-            <View style={styles.moodGrid}
-003e
+            <View style={styles.moodGrid}>
               {MOODS.map(mood => {
                 const count = moodCounts[mood.id] || 0;
                 const percentage = momentCount > 0 ? (count / momentCount) * 100 : 0;

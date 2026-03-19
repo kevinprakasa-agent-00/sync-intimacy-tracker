@@ -65,6 +65,19 @@ export const colors = {
   error: '#E8A0A0',
 };
 
+// Custom Fonts
+export const fonts = {
+  heading: 'Quicksand-SemiBold',
+  headingBold: 'Quicksand-Bold',
+  headingLight: 'Quicksand-Light',
+  headingMedium: 'Quicksand-Medium',
+  body: 'Inter-Regular',
+  bodyMedium: 'Inter-Medium',
+  bodyBold: 'Inter-Bold',
+  accent: 'Caveat-Regular',
+  accentBold: 'Caveat-Bold',
+};
+
 export const typography = {
   sizes: {
     xs: 12,
@@ -113,13 +126,14 @@ export const shadows = {
   },
 };
 
+// Mood configurations with icons instead of emojis
 export const MOODS = [
-  { id: 'magical', label: 'Magical', emoji: '✨', color: colors.moods.magical },
-  { id: 'tender', label: 'Tender', emoji: '🌸', color: colors.moods.tender },
-  { id: 'passionate', label: 'Passionate', emoji: '🔥', color: colors.moods.passionate },
-  { id: 'comfortable', label: 'Comfortable', emoji: '🏠', color: colors.moods.comfortable },
-  { id: 'playful', label: 'Playful', emoji: '🎭', color: colors.moods.playful },
-  { id: 'quick', label: 'Quick', emoji: '⚡', color: colors.moods.quick },
-  { id: 'sleepy', label: 'Sleepy', emoji: '🌙', color: colors.moods.sleepy },
-  { id: 'reconnecting', label: 'Reconnecting', emoji: '🤝', color: colors.moods.reconnecting },
+  { id: 'magical', label: 'Magical', icon: 'sparkles', color: colors.moods.magical },
+  { id: 'tender', label: 'Tender', icon: 'heart', color: colors.moods.tender },
+  { id: 'passionate', label: 'Passionate', icon: 'flame', color: colors.moods.passionate },
+  { id: 'comfortable', label: 'Comfortable', icon: 'home', color: colors.moods.comfortable },
+  { id: 'playful', label: 'Playful', icon: 'joy', color: colors.moods.playful },
+  { id: 'quick', label: 'Quick', icon: 'zap', color: colors.moods.quick },
+  { id: 'sleepy', label: 'Sleepy', icon: 'moon', color: colors.moods.sleepy },
+  { id: 'reconnecting', label: 'Reconnecting', icon: 'link', color: colors.moods.reconnecting },
 ];

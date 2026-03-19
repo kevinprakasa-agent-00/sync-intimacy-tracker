@@ -10,9 +10,10 @@ import {
 } from 'react-native';
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, 
          isSameMonth, isSameDay, addMonths, subMonths, getDay, 
-         isAfter, isBefore, parseISO } from 'date-fns';
+         isAfter, isBefore, parseISO, subDays } from 'date-fns';
 import { useSyncStore } from '../context/store';
-import { colors, typography, spacing, radii, shadows, MOODS } from '../theme';
+import { colors, typography, spacing, radii, shadows, MOODS, fonts } from '../theme';
+import { Icons, MoodIcon } from '../components/Icons';
 
 const { width } = Dimensions.get('window');
 const DAY_SIZE = (width - spacing.lg * 2 - spacing.sm * 6) / 7;
@@ -119,9 +120,7 @@ export default function TimelineScreen() {
     <ScrollView contentContainerStyle={styles.scrollContent}>
       {sortedMoments.length === 0 ? (
         <View style={styles.emptyState}>
-          <Text style={styles.emptyEmoji}>
-            {hasActiveFilters ? '🔍' : '📝'}
-          </Text>
+          <Icons name={hasActiveFilters ? 'search' : 'empty'} size={48} color={colors.text.muted} style={styles.emptyIcon} />
           <Text style={styles.emptyText}>
             {hasActiveFilters ? 'No moments match your filters' : 'No moments yet'}
           </Text>
@@ -155,7 +154,7 @@ export default function TimelineScreen() {
                     {format(new Date(moment.date), 'MMM d, yyyy')}
                   </Text>
                   <View style={[styles.moodBadge, { backgroundColor: mood.color }]}>
-                    <Text style={styles.moodEmoji}>{mood.emoji}</Text>
+                    <MoodIcon moodId={mood.id} size={16} color={colors.text.primary} />
                     <Text style={styles.moodLabel}>{mood.label}</Text>
                   </View>
                 </View>
@@ -254,7 +253,7 @@ export default function TimelineScreen() {
                 return (
                   <View key={idx} style={styles.selectedMomentCard}>
                     <View style={[styles.selectedMoodBadge, { backgroundColor: mood?.color }]}>
-                      <Text>{mood?.emoji}</Text>
+                      <MoodIcon moodId={mood?.id} size={16} color={colors.text.primary} />
                       <Text style={styles.selectedMoodLabel}>{mood?.label}</Text>
                     </View>
                     {moment.notes && (
@@ -274,7 +273,7 @@ export default function TimelineScreen() {
     <View style={styles.filtersContainer}>
       {/* Search Input */}
       <View style={styles.searchContainer}>
-        <Text style={styles.searchIcon}>🔍</Text>
+        <Icons name="search" size={18} color={colors.text.muted} style={styles.searchIcon} />
         <TextInput
           style={styles.searchInput}
           placeholder="Search notes or dates..."
@@ -284,7 +283,7 @@ export default function TimelineScreen() {
         />
         {searchQuery.length > 0 && (
           <TouchableOpacity onPress={() => setSearchQuery('')}>
-            <Text style={styles.clearIcon}>✕</Text>
+            <Icons name="close" size={18} color={colors.text.muted} />
           </TouchableOpacity>
         )}
       </View>
@@ -332,10 +331,10 @@ export default function TimelineScreen() {
             ]}
             onPress={() => toggleMoodFilter(mood.id)}
           >
-            <Text style={styles.moodFilterEmoji}>{mood.emoji}</Text>
+            <MoodIcon moodId={mood.id} size={24} color={colors.text.primary} />
             {selectedMoods.includes(mood.id) && (
               <View style={styles.checkmark}>
-                <Text style={styles.checkmarkText}>✓</Text>
+                <Icons name="check" size={10} color={colors.text.inverse} />
               </View>
             )}
           </TouchableOpacity>
@@ -354,26 +353,35 @@ export default function TimelineScreen() {
             style={[styles.filterButton, hasActiveFilters && styles.filterButtonActive]}
             onPress={() => setShowFilters(!showFilters)}
           >
-            <Text style={styles.filterButtonText}>
-              {hasActiveFilters ? `🔍 ${selectedMoods.length + (searchQuery ? 1 : 0) + (dateFilter !== 'all' ? 1 : 0)}` : '🔍'}
-            </Text>
+            <Icons name="filter" size={18} color={hasActiveFilters ? colors.text.primary : colors.text.muted} />
+            {hasActiveFilters && (
+              <View style={styles.filterBadge}>
+                <Text style={styles.filterBadgeText}>
+                  {selectedMoods.length + (searchQuery ? 1 : 0) + (dateFilter !== 'all' ? 1 : 0)}
+                </Text>
+              </View>
+            )}
           </TouchableOpacity>
           <View style={styles.toggleContainer}>
             <TouchableOpacity 
               style={[styles.toggleButton, viewMode === 'list' && styles.toggleActive]}
               onPress={() => setViewMode('list')}
             >
-              <Text style={[styles.toggleText, viewMode === 'list' && styles.toggleTextActive]}>
-                📋
-              </Text>
+              <Icons 
+                name="list" 
+                size={18} 
+                color={viewMode === 'list' ? colors.text.primary : colors.text.muted} 
+              />
             </TouchableOpacity>
             <TouchableOpacity 
               style={[styles.toggleButton, viewMode === 'calendar' && styles.toggleActive]}
               onPress={() => setViewMode('calendar')}
             >
-              <Text style={[styles.toggleText, viewMode === 'calendar' && styles.toggleTextActive]}>
-                📅
-              </Text>
+              <Icons 
+                name="calendar" 
+                size={18} 
+                color={viewMode === 'calendar' ? colors.text.primary : colors.text.muted} 
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -386,8 +394,6 @@ export default function TimelineScreen() {
     </View>
   );
 }
-
-import { subDays } from 'date-fns';
 
 const styles = StyleSheet.create({
   container: {
@@ -403,7 +409,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: typography.sizes.xl,
-    fontWeight: typography.weights.bold,
+    fontFamily: fonts.heading,
     color: colors.text.primary,
   },
   headerRight: {
@@ -412,6 +418,8 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   filterButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: spacing.sm,
     paddingVertical: spacing.xs,
     borderRadius: radii.md,
@@ -420,8 +428,19 @@ const styles = StyleSheet.create({
   filterButtonActive: {
     backgroundColor: colors.blush[200],
   },
-  filterButtonText: {
-    fontSize: 16,
+  filterBadge: {
+    backgroundColor: colors.text.primary,
+    borderRadius: radii.full,
+    minWidth: 18,
+    height: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: spacing.xs,
+  },
+  filterBadgeText: {
+    color: colors.text.inverse,
+    fontSize: 10,
+    fontWeight: typography.weights.bold,
   },
   toggleContainer: {
     flexDirection: 'row',
@@ -464,7 +483,6 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
   },
   searchIcon: {
-    fontSize: 16,
     marginRight: spacing.sm,
   },
   searchInput: {
@@ -472,11 +490,7 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.md,
     fontSize: typography.sizes.base,
     color: colors.text.primary,
-  },
-  clearIcon: {
-    fontSize: 14,
-    color: colors.text.muted,
-    padding: spacing.xs,
+    fontFamily: fonts.body,
   },
   dateFilterContainer: {
     flexDirection: 'row',
@@ -522,9 +536,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: colors.text.primary,
   },
-  moodFilterEmoji: {
-    fontSize: 24,
-  },
   checkmark: {
     position: 'absolute',
     top: 2,
@@ -535,11 +546,6 @@ const styles = StyleSheet.create({
     height: 16,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  checkmarkText: {
-    color: colors.inverse,
-    fontSize: 10,
-    fontWeight: typography.weights.bold,
   },
   // Results
   resultsHeader: {
@@ -577,8 +583,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: spacing['3xl'],
   },
-  emptyEmoji: {
-    fontSize: 48,
+  emptyIcon: {
     marginBottom: spacing.md,
   },
   emptyText: {
@@ -614,17 +619,15 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.xs,
     borderRadius: radii.md,
   },
-  moodEmoji: {
-    fontSize: 14,
-    marginRight: 4,
-  },
   moodLabel: {
     fontSize: typography.sizes.xs,
-    fontWeight: typography.weights.medium,
+    fontFamily: fonts.bodyMedium,
     color: colors.text.primary,
+    marginLeft: spacing.xs,
   },
   momentNotes: {
     fontSize: typography.sizes.sm,
+    fontFamily: fonts.body,
     color: colors.text.secondary,
     fontStyle: 'italic',
   },

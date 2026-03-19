@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSyncStore } from '../context/store';
-import { colors, typography, spacing, radii, shadows, MOODS } from '../theme';
+import { colors, typography, spacing, radii, shadows, MOODS, fonts } from '../theme';
+import { Icons, MoodIcon } from '../components/Icons';
 
 export default function LogMomentScreen() {
   const navigation = useNavigation();
@@ -35,7 +36,7 @@ export default function LogMomentScreen() {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={styles.closeButton}>✕</Text>
+          <Icons name="close" size={24} color={colors.text.secondary} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Log Moment</Text>
         <TouchableOpacity 
@@ -60,7 +61,7 @@ export default function LogMomentScreen() {
               ]}
               onPress={() => setSelectedMood(mood.id)}
             >
-              <Text style={styles.moodEmoji}>{mood.emoji}</Text>
+              <MoodIcon moodId={mood.id} size={32} color={colors.text.primary} />
               <Text style={styles.moodLabel}>{mood.label}</Text>
             </TouchableOpacity>
           ))}
@@ -99,14 +100,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: colors.cream[300],
   },
-  closeButton: {
-    fontSize: 24,
-    color: colors.text.secondary,
-    width: 40,
-  },
   headerTitle: {
     fontSize: typography.sizes.lg,
-    fontWeight: typography.weights.semibold,
+    fontFamily: fonts.heading,
     color: colors.text.primary,
   },
   saveButton: {
@@ -114,7 +110,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
     borderRadius: radii.md,
-    width: 60,
+    minWidth: 60,
     alignItems: 'center',
   },
   saveButtonDisabled: {
@@ -122,7 +118,7 @@ const styles = StyleSheet.create({
   },
   saveButtonText: {
     fontSize: typography.sizes.sm,
-    fontWeight: typography.weights.semibold,
+    fontFamily: fonts.bodyMedium,
     color: colors.text.primary,
   },
   scrollContent: {
@@ -130,7 +126,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: typography.sizes.md,
-    fontWeight: typography.weights.semibold,
+    fontFamily: fonts.heading,
     color: colors.text.primary,
     marginBottom: spacing.md,
     marginTop: spacing.lg,
@@ -150,14 +146,12 @@ const styles = StyleSheet.create({
     margin: '1%',
     ...shadows.soft,
   },
-  moodEmoji: {
-    fontSize: 28,
-    marginBottom: 4,
-  },
   moodLabel: {
     fontSize: typography.sizes.xs,
+    fontFamily: fonts.body,
     color: colors.text.secondary,
     textAlign: 'center',
+    marginTop: spacing.xs,
   },
   notesInput: {
     backgroundColor: colors.card,
@@ -166,11 +160,13 @@ const styles = StyleSheet.create({
     minHeight: 120,
     textAlignVertical: 'top',
     fontSize: typography.sizes.base,
+    fontFamily: fonts.body,
     color: colors.text.primary,
     ...shadows.soft,
   },
   charCount: {
     fontSize: typography.sizes.xs,
+    fontFamily: fonts.body,
     color: colors.text.muted,
     textAlign: 'right',
     marginTop: spacing.xs,

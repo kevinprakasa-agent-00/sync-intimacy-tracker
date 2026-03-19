@@ -8,7 +8,8 @@ import {
 } from 'react-native';
 import { format, subDays, startOfWeek, addDays, isSameDay } from 'date-fns';
 import { useSyncStore } from '../context/store';
-import { colors, typography, spacing, radii, shadows, MOODS } from '../theme';
+import { colors, typography, spacing, radii, shadows, MOODS, fonts } from '../theme';
+import { Icons, MoodIcon } from '../components/Icons';
 
 const { width } = Dimensions.get('window');
 const CHART_WIDTH = width - spacing.lg * 2;
@@ -106,20 +107,20 @@ export default function InsightsScreen() {
         {/* Stats Overview Cards */}
         <View style={styles.statsGrid}>
           <View style={styles.statCard}>
-            <Text style={styles.statEmoji}>🔥</Text>
+            <Icons name="fire" size={24} color={colors.blush[400]} style={styles.statIcon} />
             <Text style={styles.statValue}>{streak}</Text>
             <Text style={styles.statLabel}>day streak</Text>
           </View>
           
           <View style={styles.statCard}>
-            <Text style={styles.statEmoji}>📊</Text>
+            <Icons name="chart" size={24} color={colors.blush[400]} style={styles.statIcon} />
             <Text style={styles.statValue}>{momentCount}</Text>
             <Text style={styles.statLabel}>total moments</Text>
           </View>
           
           {avgFrequency && (
             <View style={styles.statCard}>
-              <Text style={styles.statEmoji}>⏱️</Text>
+              <Icons name="clock" size={24} color={colors.blush[400]} style={styles.statIcon} />
               <Text style={styles.statValue}>{Math.round(avgFrequency)}</Text>
               <Text style={styles.statLabel}>days avg</Text>
             </View>
@@ -129,7 +130,7 @@ export default function InsightsScreen() {
         {/* Top Mood Card */}
         {topMoodData && (
           <View style={[styles.insightCard, { backgroundColor: topMoodData.color + '30' }]}>
-            <Text style={styles.insightEmoji}>{topMoodData.emoji}</Text>
+            <MoodIcon moodId={topMoodData.id} size={48} color={colors.text.primary} />
             <Text style={styles.insightValue}>{topMoodData.label}</Text>
             <Text style={styles.insightLabel}>your most common mood</Text>
             <Text style={styles.insightCount}>{topMood[1]} times</Text>
@@ -139,7 +140,7 @@ export default function InsightsScreen() {
         {/* Weekly Frequency Chart */}
         {momentCount > 0 && (
           <View style={styles.chartCard}>
-            <Text style={styles.chartTitle}>📈 Weekly Frequency (12 weeks)</Text>
+            <Text style={styles.chartTitle}>Weekly Frequency (12 weeks)</Text>
             <View style={styles.chartContainer}>
               {weeklyData.map((item, index) => (
                 <View key={index} style={styles.barContainer}>
@@ -162,7 +163,7 @@ export default function InsightsScreen() {
         {/* Day of Week Pattern */}
         {momentCount > 0 && (
           <View style={styles.chartCard}>
-            <Text style={styles.chartTitle}>📅 Day of Week Pattern</Text>
+            <Text style={styles.chartTitle}>Day of Week Pattern</Text>
             <View style={styles.dayChartContainer}>
               {dayOfWeekData.map((item, index) => (
                 <View key={index} style={styles.dayBarContainer}>
@@ -189,7 +190,7 @@ export default function InsightsScreen() {
         {momentCount > 0 && (
           <View style={styles.chartCard}
           >
-            <Text style={styles.chartTitle}>🎭 Mood Distribution</Text>
+            <Text style={styles.chartTitle}>Mood Distribution</Text>
             <View style={styles.moodGrid}>
               {MOODS.map(mood => {
                 const count = moodCounts[mood.id] || 0;
@@ -199,7 +200,7 @@ export default function InsightsScreen() {
                   >
                     <View style={styles.moodRow}
                     >
-                      <Text style={styles.moodEmoji}>{mood.emoji}</Text>
+                      <MoodIcon moodId={mood.id} size={18} color={colors.text.primary} />
                       <Text style={styles.moodName}>{mood.label}</Text>
                       <Text style={styles.moodPercent}>{Math.round(percentage)}%</Text>
                     </View>
@@ -224,16 +225,17 @@ export default function InsightsScreen() {
 
         {/* Pattern Recognition */}
         <View style={styles.patternCard}>
-          <Text style={styles.patternTitle}>💡 Pattern Recognition</Text>
+          <Text style={styles.patternTitle}>Pattern Recognition</Text>
           <Text style={styles.patternText}>
             {momentCount === 0 
               ? "Log more moments to see patterns in your intimacy rhythm."
               : momentCount < 5
               ? "Keep logging! Once you have 5+ moments, we'll start showing patterns."
               : topMoodData 
-              ? `You're feeling ${topMoodData.label.toLowerCase()} most often. ${topMoodData.label === 'Magical' ? 'Keep that spark alive! ✨' : topMoodData.label === 'Passionate' ? 'Fire still burning! 🔥' : 'Sweet and steady! 💕'}`
+              ? `You're feeling ${topMoodData.label.toLowerCase()} most often. ${topMoodData.label === 'Magical' ? 'Keep that spark alive!' : topMoodData.label === 'Passionate' ? 'Fire still burning!' : 'Sweet and steady!'}`
               : "You're building a beautiful connection story. Keep it up!"}
-          </Text>        </View>
+          </Text>
+        </View>
       </ScrollView>
     </View>
   );
@@ -246,7 +248,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: typography.sizes.xl,
-    fontWeight: typography.weights.bold,
+    fontFamily: fonts.heading,
     color: colors.text.primary,
     padding: spacing.lg,
     paddingTop: spacing.xl,
@@ -267,17 +269,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     ...shadows.soft,
   },
-  statEmoji: {
-    fontSize: 24,
+  statIcon: {
     marginBottom: spacing.xs,
   },
   statValue: {
     fontSize: typography.sizes['2xl'],
-    fontWeight: typography.weights.bold,
+    fontFamily: fonts.headingBold,
     color: colors.text.primary,
   },
   statLabel: {
     fontSize: typography.sizes.xs,
+    fontFamily: fonts.body,
     color: colors.text.secondary,
     marginTop: spacing.xs,
   },
@@ -288,22 +290,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     ...shadows.soft,
   },
-  insightEmoji: {
-    fontSize: 48,
-    marginBottom: spacing.sm,
-  },
   insightValue: {
     fontSize: typography.sizes['2xl'],
-    fontWeight: typography.weights.bold,
+    fontFamily: fonts.headingBold,
     color: colors.text.primary,
+    marginTop: spacing.sm,
   },
   insightLabel: {
     fontSize: typography.sizes.sm,
+    fontFamily: fonts.body,
     color: colors.text.secondary,
     marginTop: spacing.xs,
   },
   insightCount: {
     fontSize: typography.sizes.sm,
+    fontFamily: fonts.body,
     color: colors.text.muted,
     marginTop: spacing.xs,
   },
@@ -316,7 +317,7 @@ const styles = StyleSheet.create({
   },
   chartTitle: {
     fontSize: typography.sizes.md,
-    fontWeight: typography.weights.semibold,
+    fontFamily: fonts.heading,
     color: colors.text.primary,
     marginBottom: spacing.md,
   },
@@ -338,6 +339,7 @@ const styles = StyleSheet.create({
   },
   barLabel: {
     fontSize: 9,
+    fontFamily: fonts.body,
     color: colors.text.muted,
     marginTop: spacing.xs,
     transform: [{ rotate: '-45deg' }],
@@ -364,12 +366,13 @@ const styles = StyleSheet.create({
   dayLabel: {
     width: 40,
     fontSize: typography.sizes.sm,
+    fontFamily: fonts.body,
     color: colors.text.secondary,
   },
   dayCount: {
     width: 30,
     fontSize: typography.sizes.sm,
-    fontWeight: typography.weights.semibold,
+    fontFamily: fonts.bodyMedium,
     color: colors.text.primary,
     textAlign: 'right',
   },
@@ -383,18 +386,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  moodEmoji: {
-    fontSize: 18,
-    marginRight: spacing.xs,
-  },
   moodName: {
     flex: 1,
     fontSize: typography.sizes.sm,
+    fontFamily: fonts.body,
     color: colors.text.primary,
+    marginLeft: spacing.xs,
   },
   moodPercent: {
     fontSize: typography.sizes.sm,
-    fontWeight: typography.weights.semibold,
+    fontFamily: fonts.bodyMedium,
     color: colors.text.primary,
   },
   moodBarBg: {
@@ -415,12 +416,13 @@ const styles = StyleSheet.create({
   },
   patternTitle: {
     fontSize: typography.sizes.md,
-    fontWeight: typography.weights.semibold,
+    fontFamily: fonts.heading,
     color: colors.text.primary,
     marginBottom: spacing.sm,
   },
   patternText: {
     fontSize: typography.sizes.sm,
+    fontFamily: fonts.body,
     color: colors.text.secondary,
     lineHeight: 22,
   },

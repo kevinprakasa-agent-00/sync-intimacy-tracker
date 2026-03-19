@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import * as Font from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 
-import { colors, typography, spacing } from './src/theme';
+import { colors, typography, spacing, fonts } from './src/theme';
 import { useSyncStore } from './src/context/store';
+import { Icons } from './src/components/Icons';
 
 // Screens
 import HomeScreen from './src/screens/HomeScreen';
@@ -18,11 +21,16 @@ import LogMomentScreen from './src/screens/LogMomentScreen';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-const TabIcon = ({ emoji, focused }) => (
+// Keep splash screen visible while loading fonts
+SplashScreen.preventAutoHideAsync();
+
+const TabIcon = ({ iconName, focused }) => (
   <View style={[styles.iconContainer, focused && styles.iconContainerFocused]}>
-    <Text style={[styles.iconEmoji, focused && styles.iconEmojiFocused]}>
-      {emoji}
-    </Text>
+    <Icons 
+      name={iconName} 
+      size={22} 
+      color={focused ? colors.text.primary : colors.text.muted} 
+    />
   </View>
 );
 
@@ -33,13 +41,17 @@ const MainTabs = () => (
       tabBarStyle: styles.tabBar,
       tabBarActiveTintColor: colors.text.primary,
       tabBarInactiveTintColor: colors.text.muted,
+      tabBarLabelStyle: {
+        fontFamily: fonts.body,
+        fontSize: 12,
+      },
     }}
   >
     <Tab.Screen
       name="Home"
       component={HomeScreen}
       options={{
-        tabBarIcon: ({ focused }) => <TabIcon emoji="🏠" focused={focused} />,
+        tabBarIcon: ({ focused }) => <TabIcon iconName="home" focused={focused} />,
         tabBarLabel: 'Home',
       }}
     />
@@ -47,7 +59,7 @@ const MainTabs = () => (
       name="Timeline"
       component={TimelineScreen}
       options={{
-        tabBarIcon: ({ focused }) => <TabIcon emoji="📖" focused={focused} />,
+        tabBarIcon: ({ focused }) => <TabIcon iconName="timeline" focused={focused} />,
         tabBarLabel: 'Timeline',
       }}
     />
@@ -55,7 +67,7 @@ const MainTabs = () => (
       name="Insights"
       component={InsightsScreen}
       options={{
-        tabBarIcon: ({ focused }) => <TabIcon emoji="💡" focused={focused} />,
+        tabBarIcon: ({ focused }) => <TabIcon iconName="insights" focused={focused} />,
         tabBarLabel: 'Insights',
       }}
     />
@@ -63,8 +75,45 @@ const MainTabs = () => (
 );
 
 export default function App() {
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadResources() {
+      try {
+        await Font.loadAsync({
+          'Quicksand-Light': require('./assets/fonts/Quicksand-Light.ttf'),
+          'Quicksand-Regular': require('./assets/fonts/Quicksand-Regular.ttf'),
+          'Quicksand-Medium': require('./assets/fonts/Quicksand-Medium.ttf'),
+          'Quicksand-SemiBold': require('./assets/fonts/Quicksand-SemiBold.ttf'),
+          'Quicksand-Bold': require('./assets/fonts/Quicksand-Bold.ttf'),
+          'Inter-Regular': require('./assets/fonts/Inter-Regular.ttf'),
+          'Inter-Medium': require('./assets/fonts/Inter-Medium.ttf'),
+          'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
+          'Caveat-Regular': require('./assets/fonts/Caveat-Regular.ttf'),
+          'Caveat-Bold': require('./assets/fonts/Caveat-Bold.ttf'),
+        });
+      } catch (e) {
+        console.warn('Error loading fonts:', e);
+      } finally {
+        setFontsLoaded(true);
+      }
+    }
+
+    loadResources();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider onLayout={onLayoutRootView}>
       <NavigationContainer>
         <StatusBar style="dark" />
         <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -103,12 +152,5 @@ const styles = StyleSheet.create({
   },
   iconContainerFocused: {
     backgroundColor: colors.blush[100],
-  },
-  iconEmoji: {
-    fontSize: 20,
-    opacity: 0.6,
-  },
-  iconEmojiFocused: {
-    opacity: 1,
   },
 });

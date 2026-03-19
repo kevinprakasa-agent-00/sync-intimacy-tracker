@@ -7,3 +7,4 @@ export { InitiatorPicker } from './InitiatorPicker';
 export { TagSelector } from './TagSelector';
 export { TimelineCard } from './TimelineCard';
 export * from './StatsCards';
+export { Icons, MoodIcon } from './Icons';

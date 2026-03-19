@@ -2,7 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSyncStore } from '../context/store';
-import { colors, typography, spacing, radii, shadows } from '../theme';
+import { colors, typography, spacing, radii, shadows, fonts } from '../theme';
+import { Icons } from '../components/Icons';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -15,23 +16,28 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
-          <Text style={styles.logoEmoji}>💕</Text>
+          <View style={styles.logoContainer}>
+            <Icons name="heart" size={64} color={colors.blush[400]} fill={true} />
+          </View>
           <Text style={styles.appName}>Sync</Text>
           <Text style={styles.tagline}>Your private intimacy journal</Text>
         </View>
         
         <View style={styles.statsContainer}>
           <View style={styles.statCard}>
+            <Icons name="fire" size={24} color={colors.blush[400]} style={styles.statIcon} />
             <Text style={styles.statNumber}>{streak}</Text>
             <Text style={styles.statLabel}>day streak</Text>
           </View>
           
           <View style={styles.statCard}>
+            <Icons name="calendar" size={24} color={colors.blush[400]} style={styles.statIcon} />
             <Text style={styles.statNumber}>{thisMonth}</Text>
             <Text style={styles.statLabel}>this month</Text>
           </View>
           
           <View style={styles.statCard}>
+            <Icons name="chart" size={24} color={colors.blush[400]} style={styles.statIcon} />
             <Text style={styles.statNumber}>{moments?.length || 0}</Text>
             <Text style={styles.statLabel}>total</Text>
           </View>
@@ -41,7 +47,10 @@ export default function HomeScreen() {
           style={styles.logButton}
           onPress={() => navigation.navigate('LogMoment')}
         >
-          <Text style={styles.logButtonText}>+ Log Moment</Text>
+          <View style={styles.logButtonContent}>
+            <Icons name="plus" size={20} color={colors.text.primary} />
+            <Text style={styles.logButtonText}>Log Moment</Text>
+          </View>
         </TouchableOpacity>
         
       </ScrollView>
@@ -62,18 +71,18 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === 'web' ? 40 : 60,
     marginBottom: spacing.xl,
   },
-  logoEmoji: {
-    fontSize: 64,
+  logoContainer: {
     marginBottom: spacing.md,
   },
   appName: {
     fontSize: typography.sizes['2xl'],
-    fontWeight: typography.weights.bold,
+    fontFamily: fonts.headingBold,
     color: colors.text.primary,
     marginBottom: spacing.xs,
   },
   tagline: {
     fontSize: typography.sizes.base,
+    fontFamily: fonts.body,
     color: colors.text.secondary,
   },
   statsContainer: {
@@ -90,13 +99,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     ...shadows.soft,
   },
+  statIcon: {
+    marginBottom: spacing.xs,
+  },
   statNumber: {
     fontSize: typography.sizes.xl,
-    fontWeight: typography.weights.bold,
+    fontFamily: fonts.headingBold,
     color: colors.text.primary,
   },
   statLabel: {
     fontSize: typography.sizes.sm,
+    fontFamily: fonts.body,
     color: colors.text.secondary,
     marginTop: spacing.xs,
   },
@@ -108,9 +121,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     ...shadows.soft,
   },
+  logButtonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
   logButtonText: {
     fontSize: typography.sizes.md,
-    fontWeight: typography.weights.semibold,
+    fontFamily: fonts.heading,
     color: colors.text.primary,
   },
 });

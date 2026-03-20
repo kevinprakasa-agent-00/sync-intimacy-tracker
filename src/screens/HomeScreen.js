@@ -76,13 +76,13 @@ const styles = StyleSheet.create({
   },
   appName: {
     fontSize: typography.sizes['2xl'],
-    fontFamily: fonts.headingBold,
+    fontFamily: fonts.bold,
     color: colors.text.primary,
     marginBottom: spacing.xs,
   },
   tagline: {
     fontSize: typography.sizes.base,
-    fontFamily: fonts.body,
+    fontFamily: fonts.regular,
     color: colors.text.secondary,
   },
   statsContainer: {
@@ -104,12 +104,12 @@ const styles = StyleSheet.create({
   },
   statNumber: {
     fontSize: typography.sizes.xl,
-    fontFamily: fonts.headingBold,
+    fontFamily: fonts.bold,
     color: colors.text.primary,
   },
   statLabel: {
     fontSize: typography.sizes.sm,
-    fontFamily: fonts.body,
+    fontFamily: fonts.regular,
     color: colors.text.secondary,
     marginTop: spacing.xs,
   },
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   },
   logButtonText: {
     fontSize: typography.sizes.md,
-    fontFamily: fonts.heading,
+    fontFamily: fonts.semibold,
     color: colors.text.primary,
   },
 });

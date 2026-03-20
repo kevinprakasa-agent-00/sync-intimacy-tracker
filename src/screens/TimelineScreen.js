@@ -409,7 +409,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: typography.sizes.xl,
-    fontFamily: fonts.heading,
+    fontFamily: fonts.semibold,
     color: colors.text.primary,
   },
   headerRight: {
@@ -440,7 +440,7 @@ const styles = StyleSheet.create({
   filterBadgeText: {
     color: colors.text.inverse,
     fontSize: 10,
-    fontWeight: typography.weights.bold,
+    fontFamily: fonts.bold,
   },
   toggleContainer: {
     flexDirection: 'row',
@@ -490,7 +490,7 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.md,
     fontSize: typography.sizes.base,
     color: colors.text.primary,
-    fontFamily: fonts.body,
+    fontFamily: fonts.regular,
   },
   dateFilterContainer: {
     flexDirection: 'row',
@@ -508,14 +508,16 @@ const styles = StyleSheet.create({
   },
   dateFilterText: {
     fontSize: typography.sizes.sm,
+    fontFamily: fonts.regular,
     color: colors.text.secondary,
   },
   dateFilterTextActive: {
     color: colors.text.primary,
-    fontWeight: typography.weights.medium,
+    fontFamily: fonts.medium,
   },
   filterLabel: {
     fontSize: typography.sizes.sm,
+    fontFamily: fonts.regular,
     color: colors.text.secondary,
     marginBottom: spacing.sm,
   },
@@ -556,12 +558,13 @@ const styles = StyleSheet.create({
   },
   resultsText: {
     fontSize: typography.sizes.sm,
+    fontFamily: fonts.regular,
     color: colors.text.secondary,
   },
   clearText: {
     fontSize: typography.sizes.sm,
+    fontFamily: fonts.medium,
     color: colors.blush[400],
-    fontWeight: typography.weights.medium,
   },
   clearFiltersButton: {
     marginTop: spacing.lg,
@@ -572,7 +575,7 @@ const styles = StyleSheet.create({
   },
   clearFiltersText: {
     fontSize: typography.sizes.base,
-    fontWeight: typography.weights.medium,
+    fontFamily: fonts.medium,
     color: colors.text.primary,
   },
   // List view
@@ -588,10 +591,12 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: typography.sizes.lg,
+    fontFamily: fonts.regular,
     color: colors.text.secondary,
   },
   emptySubtext: {
     fontSize: typography.sizes.sm,
+    fontFamily: fonts.regular,
     color: colors.text.muted,
     marginTop: spacing.xs,
   },
@@ -610,6 +615,7 @@ const styles = StyleSheet.create({
   },
   momentDate: {
     fontSize: typography.sizes.sm,
+    fontFamily: fonts.regular,
     color: colors.text.muted,
   },
   moodBadge: {
@@ -621,13 +627,13 @@ const styles = StyleSheet.create({
   },
   moodLabel: {
     fontSize: typography.sizes.xs,
-    fontFamily: fonts.bodyMedium,
+    fontFamily: fonts.medium,
     color: colors.text.primary,
     marginLeft: spacing.xs,
   },
   momentNotes: {
     fontSize: typography.sizes.sm,
-    fontFamily: fonts.body,
+    fontFamily: fonts.regular,
     color: colors.text.secondary,
     fontStyle: 'italic',
   },
@@ -643,12 +649,13 @@ const styles = StyleSheet.create({
   },
   navArrow: {
     fontSize: 32,
+    fontFamily: fonts.regular,
     color: colors.blush[300],
     paddingHorizontal: spacing.md,
   },
   monthTitle: {
     fontSize: typography.sizes.lg,
-    fontWeight: typography.weights.semibold,
+    fontFamily: fonts.semibold,
     color: colors.text.primary,
   },
   weekHeader: {
@@ -659,8 +666,8 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     fontSize: typography.sizes.xs,
+    fontFamily: fonts.medium,
     color: colors.text.muted,
-    fontWeight: typography.weights.medium,
   },
   calendarGrid: {
     flexDirection: 'row',
@@ -684,8 +691,8 @@ const styles = StyleSheet.create({
   },
   dayNumber: {
     fontSize: typography.sizes.sm,
+    fontFamily: fonts.medium,
     color: colors.text.primary,
-    fontWeight: typography.weights.medium,
   },
   dayNumberMuted: {
     color: colors.text.muted,
@@ -709,12 +716,13 @@ const styles = StyleSheet.create({
   },
   selectedDayTitle: {
     fontSize: typography.sizes.md,
-    fontWeight: typography.weights.semibold,
+    fontFamily: fonts.semibold,
     color: colors.text.primary,
     marginBottom: spacing.md,
   },
   noMomentsText: {
     fontSize: typography.sizes.sm,
+    fontFamily: fonts.regular,
     color: colors.text.muted,
     fontStyle: 'italic',
   },
@@ -735,12 +743,13 @@ const styles = StyleSheet.create({
   },
   selectedMoodLabel: {
     fontSize: typography.sizes.xs,
-    fontWeight: typography.weights.medium,
+    fontFamily: fonts.medium,
     color: colors.text.primary,
     marginLeft: 4,
   },
   selectedNotes: {
     fontSize: typography.sizes.sm,
+    fontFamily: fonts.regular,
     color: colors.text.secondary,
     fontStyle: 'italic',
   },

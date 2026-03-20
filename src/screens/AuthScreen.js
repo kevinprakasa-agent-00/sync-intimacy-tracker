@@ -17,8 +17,9 @@ import Animated, {
   Easing
 } from 'react-native-reanimated';
 import { useSyncStore } from '../context/store';
-import { colors, typography, spacing, radii } from '../theme';
+import { colors, typography, spacing, radii, fonts } from '../theme';
 import { PaperCard, Heading, Body } from '../components/ui';
+import { Icons } from '../components/Icons';
 
 // Conditionally import local authentication (not available on web)
 let LocalAuthentication = null;
@@ -122,7 +123,9 @@ export const AuthScreen = ({ navigation }) => {
       
       <View style={styles.content}>
         <View style={styles.logoContainer}>
-          <Text style={styles.logoEmoji}>💕</Text>
+          <View style={styles.logoIcon}>
+            <Icons name="heart" size={64} color={colors.blush[400]} fill={true} />
+          </View>
           <Heading size="xl" style={styles.appName}>Sync</Heading>
           <Body size="md" color="secondary" style={styles.tagline}>
             Your private intimacy journal
@@ -136,7 +139,7 @@ export const AuthScreen = ({ navigation }) => {
             style={[styles.lockButton, lockAnimatedStyle]}
             activeOpacity={0.8}
           >
-            <Text style={styles.lockEmoji}>🔒</Text>
+            <Icons name="lock" size={32} color={colors.text.primary} />
           </AnimatedTouchable>
           
           <Body size="sm" color="secondary" style={styles.hintText}>
@@ -151,7 +154,7 @@ export const AuthScreen = ({ navigation }) => {
         )}
         
         <View style={styles.privacyNote}>
-          <Text style={styles.privacyEmoji}>🛡️</Text>
+          <Icons name="shield" size={16} color={colors.text.muted} />
           <Body size="xs" color="muted" style={styles.privacyText}>
             Your data stays on your device
           </Body>
@@ -196,8 +199,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: spacing['3xl'],
   },
-  logoEmoji: {
-    fontSize: 64,
+  logoIcon: {
     marginBottom: spacing.md,
   },
   appName: {
@@ -236,9 +238,6 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  lockEmoji: {
-    fontSize: 32,
-  },
   hintText: {
     marginTop: spacing.md,
   },
@@ -250,16 +249,14 @@ const styles = StyleSheet.create({
   errorText: {
     color: colors.error,
     textAlign: 'center',
+    fontFamily: fonts.regular,
   },
   privacyNote: {
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
     bottom: spacing.xl,
-  },
-  privacyEmoji: {
-    fontSize: 14,
-    marginRight: spacing.xs,
+    gap: spacing.xs,
   },
   privacyText: {
     textAlign: 'center',

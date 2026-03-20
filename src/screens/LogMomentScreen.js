@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: typography.sizes.lg,
-    fontFamily: fonts.heading,
+    fontFamily: fonts.semibold,
     color: colors.text.primary,
   },
   saveButton: {
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   },
   saveButtonText: {
     fontSize: typography.sizes.sm,
-    fontFamily: fonts.bodyMedium,
+    fontFamily: fonts.medium,
     color: colors.text.primary,
   },
   scrollContent: {
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: typography.sizes.md,
-    fontFamily: fonts.heading,
+    fontFamily: fonts.semibold,
     color: colors.text.primary,
     marginBottom: spacing.md,
     marginTop: spacing.lg,
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   },
   moodLabel: {
     fontSize: typography.sizes.xs,
-    fontFamily: fonts.body,
+    fontFamily: fonts.regular,
     color: colors.text.secondary,
     textAlign: 'center',
     marginTop: spacing.xs,
@@ -160,13 +160,13 @@ const styles = StyleSheet.create({
     minHeight: 120,
     textAlignVertical: 'top',
     fontSize: typography.sizes.base,
-    fontFamily: fonts.body,
+    fontFamily: fonts.regular,
     color: colors.text.primary,
     ...shadows.soft,
   },
   charCount: {
     fontSize: typography.sizes.xs,
-    fontFamily: fonts.body,
+    fontFamily: fonts.regular,
     color: colors.text.muted,
     textAlign: 'right',
     marginTop: spacing.xs,

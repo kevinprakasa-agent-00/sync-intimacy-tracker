@@ -42,7 +42,7 @@ const MainTabs = () => (
       tabBarActiveTintColor: colors.text.primary,
       tabBarInactiveTintColor: colors.text.muted,
       tabBarLabelStyle: {
-        fontFamily: fonts.body,
+        fontFamily: fonts.regular,
         fontSize: 12,
       },
     }}
@@ -81,16 +81,10 @@ export default function App() {
     async function loadResources() {
       try {
         await Font.loadAsync({
-          'Quicksand-Light': require('./assets/fonts/Quicksand-Light.ttf'),
           'Quicksand-Regular': require('./assets/fonts/Quicksand-Regular.ttf'),
           'Quicksand-Medium': require('./assets/fonts/Quicksand-Medium.ttf'),
           'Quicksand-SemiBold': require('./assets/fonts/Quicksand-SemiBold.ttf'),
           'Quicksand-Bold': require('./assets/fonts/Quicksand-Bold.ttf'),
-          'Inter-Regular': require('./assets/fonts/Inter-Regular.ttf'),
-          'Inter-Medium': require('./assets/fonts/Inter-Medium.ttf'),
-          'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
-          'Caveat-Regular': require('./assets/fonts/Caveat-Regular.ttf'),
-          'Caveat-Bold': require('./assets/fonts/Caveat-Bold.ttf'),
         });
       } catch (e) {
         console.warn('Error loading fonts:', e);

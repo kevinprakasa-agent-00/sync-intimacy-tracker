@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: typography.sizes.xl,
-    fontFamily: fonts.heading,
+    fontFamily: fonts.semibold,
     color: colors.text.primary,
     padding: spacing.lg,
     paddingTop: spacing.xl,
@@ -274,12 +274,12 @@ const styles = StyleSheet.create({
   },
   statValue: {
     fontSize: typography.sizes['2xl'],
-    fontFamily: fonts.headingBold,
+    fontFamily: fonts.bold,
     color: colors.text.primary,
   },
   statLabel: {
     fontSize: typography.sizes.xs,
-    fontFamily: fonts.body,
+    fontFamily: fonts.regular,
     color: colors.text.secondary,
     marginTop: spacing.xs,
   },
@@ -292,19 +292,19 @@ const styles = StyleSheet.create({
   },
   insightValue: {
     fontSize: typography.sizes['2xl'],
-    fontFamily: fonts.headingBold,
+    fontFamily: fonts.bold,
     color: colors.text.primary,
     marginTop: spacing.sm,
   },
   insightLabel: {
     fontSize: typography.sizes.sm,
-    fontFamily: fonts.body,
+    fontFamily: fonts.regular,
     color: colors.text.secondary,
     marginTop: spacing.xs,
   },
   insightCount: {
     fontSize: typography.sizes.sm,
-    fontFamily: fonts.body,
+    fontFamily: fonts.regular,
     color: colors.text.muted,
     marginTop: spacing.xs,
   },
@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
   },
   chartTitle: {
     fontSize: typography.sizes.md,
-    fontFamily: fonts.heading,
+    fontFamily: fonts.semibold,
     color: colors.text.primary,
     marginBottom: spacing.md,
   },
@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
   },
   barLabel: {
     fontSize: 9,
-    fontFamily: fonts.body,
+    fontFamily: fonts.regular,
     color: colors.text.muted,
     marginTop: spacing.xs,
     transform: [{ rotate: '-45deg' }],
@@ -366,13 +366,13 @@ const styles = StyleSheet.create({
   dayLabel: {
     width: 40,
     fontSize: typography.sizes.sm,
-    fontFamily: fonts.body,
+    fontFamily: fonts.regular,
     color: colors.text.secondary,
   },
   dayCount: {
     width: 30,
     fontSize: typography.sizes.sm,
-    fontFamily: fonts.bodyMedium,
+    fontFamily: fonts.medium,
     color: colors.text.primary,
     textAlign: 'right',
   },
@@ -389,13 +389,13 @@ const styles = StyleSheet.create({
   moodName: {
     flex: 1,
     fontSize: typography.sizes.sm,
-    fontFamily: fonts.body,
+    fontFamily: fonts.regular,
     color: colors.text.primary,
     marginLeft: spacing.xs,
   },
   moodPercent: {
     fontSize: typography.sizes.sm,
-    fontFamily: fonts.bodyMedium,
+    fontFamily: fonts.medium,
     color: colors.text.primary,
   },
   moodBarBg: {
@@ -416,13 +416,13 @@ const styles = StyleSheet.create({
   },
   patternTitle: {
     fontSize: typography.sizes.md,
-    fontFamily: fonts.heading,
+    fontFamily: fonts.semibold,
     color: colors.text.primary,
     marginBottom: spacing.sm,
   },
   patternText: {
     fontSize: typography.sizes.sm,
-    fontFamily: fonts.body,
+    fontFamily: fonts.regular,
     color: colors.text.secondary,
     lineHeight: 22,
   },

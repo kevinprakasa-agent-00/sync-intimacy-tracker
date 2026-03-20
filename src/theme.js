@@ -65,17 +65,12 @@ export const colors = {
   error: '#E8A0A0',
 };
 
-// Custom Fonts
+// Single font for entire app - clean and uniform
 export const fonts = {
-  heading: 'Quicksand-SemiBold',
-  headingBold: 'Quicksand-Bold',
-  headingLight: 'Quicksand-Light',
-  headingMedium: 'Quicksand-Medium',
-  body: 'Inter-Regular',
-  bodyMedium: 'Inter-Medium',
-  bodyBold: 'Inter-Bold',
-  accent: 'Caveat-Regular',
-  accentBold: 'Caveat-Bold',
+  regular: 'Quicksand-Regular',
+  medium: 'Quicksand-Medium',
+  semibold: 'Quicksand-SemiBold',
+  bold: 'Quicksand-Bold',
 };
 
 export const typography = {

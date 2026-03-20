@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { colors, radii, shadows, spacing, typography } from '../theme';
+import { colors, radii, shadows, spacing, typography, fonts } from '../theme';
 
 export const PaperCard = ({ children, style, onPress }) => {
   const Wrapper = onPress ? TouchableOpacity : View;
@@ -51,10 +51,10 @@ const styles = StyleSheet.create({
     ...shadows.soft,
   },
   heading: {
-    fontWeight: typography.weights.bold,
+    fontFamily: fonts.bold,
   },
   body: {
-    fontWeight: typography.weights.regular,
+    fontFamily: fonts.regular,
   },
   center: {
     textAlign: 'center',

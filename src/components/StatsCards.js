@@ -1,13 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { PaperCard, Heading, Body } from './ui';
-import { colors, typography, spacing } from '../theme';
+import { colors, typography, spacing, fonts } from '../theme';
+import { Icons } from './Icons';
 
 export const StreakCard = ({ streak, daysSince }) => {
   return (
     <PaperCard variant="elevated" style={styles.streakCard}>
       <View style={styles.streakHeader}>
-        <Text style={styles.flameEmoji}>{streak > 0 ? '🔥' : '💤'}</Text>
+        <Icons name={streak > 0 ? 'fire' : 'moon'} size={48} color={colors.blush[400]} />
         <View style={styles.streakTextContainer}>
           <Heading size="xl" style={styles.streakNumber}>
             {streak}
@@ -20,7 +21,7 @@ export const StreakCard = ({ streak, daysSince }) => {
       
       <Body size="sm" color="muted" style={styles.daysSinceText}>
         {daysSince === 0 
-          ? "Connected today 💕" 
+          ? "Connected today" 
           : daysSince === 1 
           ? "1 day since last moment"
           : `${daysSince} days since last moment`}
@@ -31,14 +32,10 @@ export const StreakCard = ({ streak, daysSince }) => {
 
 export const TrendCard = ({ thisMonth, lastMonth, trend }) => {
   const isPositive = trend >= 0;
-  const trendEmoji = isPositive ? '📈' : '📉';
-  const trendText = trend === null 
-    ? 'First month!' 
-    : `${Math.abs(trend).toFixed(0)}% ${isPositive ? 'more' : 'less'}`;
   
   return (
     <PaperCard style={styles.trendCard}>
-      <Text style={styles.trendEmoji}>{trendEmoji}</Text>
+      <Icons name="chart" size={24} color={colors.blush[400]} style={styles.trendIcon} />
       <Heading size="lg" style={styles.monthCount}>{thisMonth}</Heading>
       <Body size="sm" color="secondary">this month</Body>
       
@@ -46,7 +43,9 @@ export const TrendCard = ({ thisMonth, lastMonth, trend }) => {
         <Text style={[styles.trendArrow, isPositive ? styles.positive : styles.negative]}>
           {isPositive ? '↑' : '↓'}
         </Text>
-        <Body size="xs" color="muted">{trendText}</Body>
+        <Body size="xs" color="muted">
+          {trend === null ? 'First month!' : `${Math.abs(trend).toFixed(0)}% ${isPositive ? 'more' : 'less'}`}
+        </Body>
       </View>
     </PaperCard>
   );
@@ -61,17 +60,9 @@ export const RhythmCard = ({ frequency }) => {
     return 'Taking your time';
   };
   
-  const getRhythmEmoji = () => {
-    if (!frequency) return '🌱';
-    if (frequency <= 2) return '🔥';
-    if (frequency <= 5) return '💫';
-    if (frequency <= 7) return '📅';
-    return '🐢';
-  };
-  
   return (
     <PaperCard style={styles.rhythmCard}>
-      <Text style={styles.rhythmEmoji}>{getRhythmEmoji()}</Text>
+      <Icons name="clock" size={28} color={colors.blush[400]} style={styles.rhythmIcon} />
       <Heading size="md">Your Rhythm</Heading>
       
       <Body size="sm" color="secondary" style={styles.rhythmLabel}>
@@ -142,12 +133,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  flameEmoji: {
-    fontSize: 48,
-    marginRight: spacing.md,
-  },
   streakTextContainer: {
     flex: 1,
+    marginLeft: spacing.md,
   },
   streakNumber: {
     marginBottom: -4,
@@ -167,8 +155,7 @@ const styles = StyleSheet.create({
     padding: spacing.md,
     alignItems: 'center',
   },
-  trendEmoji: {
-    fontSize: 24,
+  trendIcon: {
     marginBottom: spacing.xs,
   },
   monthCount: {
@@ -182,7 +169,7 @@ const styles = StyleSheet.create({
   trendArrow: {
     fontSize: 14,
     marginRight: 4,
-    fontWeight: 'bold',
+    fontFamily: fonts.bold,
   },
   positive: {
     color: colors.success,
@@ -197,8 +184,7 @@ const styles = StyleSheet.create({
     padding: spacing.md,
     alignItems: 'center',
   },
-  rhythmEmoji: {
-    fontSize: 28,
+  rhythmIcon: {
     marginBottom: spacing.xs,
   },
   rhythmLabel: {

@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
-import { INITIATORS, colors, typography, spacing, radii } from '../theme';
+import { INITIATORS, colors, typography, spacing, radii, fonts } from '../theme';
+import { Icons } from './Icons';
 
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -48,7 +49,7 @@ const InitiatorOption = ({ initiator, selected, onPress }) => {
       ]}
       activeOpacity={0.8}
     >
-      <Text style={styles.emoji}>{initiator.emoji}</Text>
+      <Icons name={initiator.icon} size={28} color={selected ? colors.text.primary : colors.text.secondary} />
       <Text style={[styles.labelText, selected && styles.labelTextSelected]}>
         {initiator.label}
       </Text>
@@ -63,9 +64,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.md,
   },
   label: {
-    fontFamily: typography.fonts.heading,
+    fontFamily: fonts.semibold,
     fontSize: typography.sizes.md,
-    fontWeight: typography.weights.semibold,
     color: colors.text.primary,
     marginBottom: spacing.md,
   },
@@ -87,21 +87,17 @@ const styles = StyleSheet.create({
     backgroundColor: colors.blush[100],
     borderColor: colors.blush[200],
   },
-  emoji: {
-    fontSize: 28,
-    marginBottom: spacing.xs,
-  },
   labelText: {
-    fontFamily: typography.fonts.body,
+    fontFamily: fonts.medium,
     fontSize: typography.sizes.sm,
-    fontWeight: typography.weights.medium,
     color: colors.text.secondary,
+    marginTop: spacing.xs,
   },
   labelTextSelected: {
     color: colors.text.primary,
   },
   description: {
-    fontFamily: typography.fonts.body,
+    fontFamily: fonts.regular,
     fontSize: typography.sizes.xs,
     color: colors.text.muted,
     marginTop: spacing.xs,

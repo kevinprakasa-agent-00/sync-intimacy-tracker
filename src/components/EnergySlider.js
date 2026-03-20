@@ -4,10 +4,9 @@ import Animated, {
   useSharedValue, 
   useAnimatedStyle, 
   withSpring,
-  interpolateColor
 } from 'react-native-reanimated';
-import { colors, typography, spacing } from '../theme';
-import * as Haptics from 'expo-haptics';
+import { colors, typography, spacing, fonts } from '../theme';
+import { Icons } from './Icons';
 
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -27,10 +26,7 @@ export const EnergySlider = ({ value, onChange, min = 1, max = 5 }) => {
             key={level}
             level={level}
             filled={level <= value}
-            onPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              onChange(level);
-            }}
+            onPress={() => onChange(level)}
           />
         ))}
       </View>
@@ -38,7 +34,7 @@ export const EnergySlider = ({ value, onChange, min = 1, max = 5 }) => {
   );
 };
 
-const HeartButton = ({ level, filled, onPress }) => {
+const HeartButton = ({ filled, onPress }) => {
   const scale = useSharedValue(1);
   
   const handlePress = () => {
@@ -58,9 +54,12 @@ const HeartButton = ({ level, filled, onPress }) => {
       style={[styles.heartButton, animatedStyle]}
       activeOpacity={0.7}
     >
-      <Text style={[styles.heart, filled && styles.heartFilled]}>
-        {filled ? '❤️' : '🤍'}
-      </Text>
+      <Icons 
+        name="heart" 
+        size={32} 
+        color={filled ? colors.heart : colors.cream[400]} 
+        fill={filled}
+      />
     </AnimatedTouchable>
   );
 };
@@ -88,13 +87,12 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
   },
   label: {
-    fontFamily: typography.fonts.heading,
+    fontFamily: fonts.semibold,
     fontSize: typography.sizes.md,
-    fontWeight: typography.weights.semibold,
     color: colors.text.primary,
   },
   valueText: {
-    fontFamily: typography.fonts.accent,
+    fontFamily: fonts.medium,
     fontSize: typography.sizes.md,
     color: colors.rose[300],
   },
@@ -106,12 +104,5 @@ const styles = StyleSheet.create({
   },
   heartButton: {
     padding: spacing.sm,
-  },
-  heart: {
-    fontSize: 32,
-    opacity: 0.4,
-  },
-  heartFilled: {
-    opacity: 1,
   },
 });

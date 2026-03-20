@@ -132,3 +132,25 @@ export const MOODS = [
   { id: 'sleepy', label: 'Sleepy', icon: 'moon', color: colors.moods.sleepy },
   { id: 'reconnecting', label: 'Reconnecting', icon: 'link', color: colors.moods.reconnecting },
 ];
+
+// Initiator options
+export const INITIATORS = [
+  { id: 'you', label: 'You', description: 'You started it', icon: 'person' },
+  { id: 'partner', label: 'Partner', description: 'They started it', icon: 'heart' },
+  { id: 'mutual', label: 'Mutual', description: 'Spontaneous', icon: 'link' },
+  { id: 'unknown', label: 'Not sure', description: 'Doesn\'t matter', icon: 'help' },
+];
+
+// Context tags
+export const CONTEXT_TAGS = [
+  { id: 'latenight', label: 'Late night', icon: 'moon' },
+  { id: 'morning', label: 'Morning', icon: 'sparkles' },
+  { id: 'shower', label: 'Shower', icon: 'zap' },
+  { id: 'datenight', label: 'Date night', icon: 'heart' },
+  { id: 'conversation', label: 'Deep talk', icon: 'link' },
+  { id: 'movie', label: 'Movie', icon: 'play' },
+  { id: 'vacation', label: 'Vacation', icon: 'calendar' },
+  { id: 'celebration', label: 'Celebration', icon: 'sparkles' },
+  { id: 'stressrelief', label: 'Stress relief', icon: 'zap' },
+  { id: 'spaday', label: 'Spa day', icon: 'heart' },
+];

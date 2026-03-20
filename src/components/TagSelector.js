@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
-import { CONTEXT_TAGS, colors, typography, spacing, radii } from '../theme';
+import { CONTEXT_TAGS, colors, typography, spacing, radii, fonts } from '../theme';
+import { Icons } from './Icons';
 
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -52,7 +53,7 @@ const TagChip = ({ tag, selected, onPress }) => {
       ]}
       activeOpacity={0.8}
     >
-      <Text style={styles.emoji}>{tag.emoji}</Text>
+      <Icons name={tag.icon} size={16} color={selected ? colors.text.primary : colors.text.secondary} />
       <Text style={[styles.labelText, selected && styles.labelTextSelected]}>
         {tag.label}
       </Text>
@@ -65,9 +66,8 @@ const styles = StyleSheet.create({
     marginVertical: spacing.md,
   },
   label: {
-    fontFamily: typography.fonts.heading,
+    fontFamily: fonts.semibold,
     fontSize: typography.sizes.md,
-    fontWeight: typography.weights.semibold,
     color: colors.text.primary,
     marginBottom: spacing.md,
     marginLeft: spacing.md,
@@ -94,17 +94,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.peach[200],
     borderColor: colors.peach[300],
   },
-  emoji: {
-    fontSize: 16,
-    marginRight: 6,
-  },
   labelText: {
-    fontFamily: typography.fonts.body,
+    fontFamily: fonts.regular,
     fontSize: typography.sizes.sm,
     color: colors.text.secondary,
+    marginLeft: 6,
   },
   labelTextSelected: {
+    fontFamily: fonts.medium,
     color: colors.text.primary,
-    fontWeight: typography.weights.medium,
   },
 });

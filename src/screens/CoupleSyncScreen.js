@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import { useSyncStore } from '../context/store';
-import { colors, typography, spacing, radii } from '../theme';
-import { PaperCard, Heading, Body, SoftButton } from '../components/ui';
+import { colors, typography, spacing, radii, fonts } from '../theme';
+import { PaperCard, Heading, Body } from '../components/ui';
+import { Icons } from '../components/Icons';
 
 export const CoupleSyncScreen = () => {
   const { 
@@ -53,12 +54,12 @@ export const CoupleSyncScreen = () => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.header}>
-          <Heading size="2xl">Connected 💑</Heading>
+          <Heading size="2xl">Connected</Heading>
           <Body size="sm" color="secondary">You're in sync with {user.partnerName || 'your partner'}</Body>
         </View>
         
         <PaperCard style={styles.connectedCard}>
-          <Text style={styles.bigEmoji}>💕</Text>
+          <Icons name="link" size={64} color={colors.blush[400]} style={styles.bigIcon} />
           <Heading size="lg" style={styles.connectedTitle}>You're synced!</Heading>
           <Body size="sm" color="secondary" style={styles.connectedText}>
             You can now see each other's moments and insights
@@ -69,23 +70,23 @@ export const CoupleSyncScreen = () => {
           <Heading size="sm" style={styles.featuresTitle}>What you can share:</Heading>
           
           <View style={styles.featureRow}>
-            <Text style={styles.featureEmoji}>📊</Text>
+            <Icons name="timeline" size={20} color={colors.text.secondary} />
             <Body size="sm">Combined timeline</Body>
           </View>
           
           <View style={styles.featureRow}>
-            <Text style={styles.featureEmoji}>💡</Text>
+            <Icons name="insights" size={20} color={colors.text.secondary} />
             <Body size="sm">Mutual insights</Body>
           </View>
           
           <View style={styles.featureRow}>
-            <Text style={styles.featureEmoji}>🎯</Text>
+            <Icons name="heart" size={20} color={colors.text.secondary} />
             <Body size="sm">Desire alignment</Body>
           </View>
         </PaperCard>
         
         <PaperCard style={styles.privacyCard}>
-          <Text style={styles.privacyEmoji}>🔒</Text>
+          <Icons name="shield" size={20} color={colors.text.muted} />
           <Body size="xs" color="muted" style={styles.privacyText}>
             Private moments are still only visible to you. 
             Toggle privacy when logging a moment.
@@ -97,11 +98,9 @@ export const CoupleSyncScreen = () => {
             Need to disconnect?
           </Body>
           
-          <SoftButton
-            title="Disconnect partner"
-            variant="outline"
-            onPress={handleDisconnect}
-          />
+          <TouchableOpacity style={styles.disconnectButton} onPress={handleDisconnect}>
+            <Text style={styles.disconnectButtonText}>Disconnect partner</Text>
+          </TouchableOpacity>
         </View>
         
         <View style={styles.bottomPadding} />
@@ -116,24 +115,22 @@ export const CoupleSyncScreen = () => {
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.header}>
-        <Heading size="2xl">Couple Sync 💑</Heading>
+        <Heading size="2xl">Couple Sync</Heading>
         <Body size="sm" color="secondary">Connect with your partner</Body>
       </View>
       
       {/* Generate Code Section */}
       <PaperCard style={styles.codeCard}>
-        <Text style={styles.sectionEmoji}>📤</Text>
+        <Icons name="link" size={32} color={colors.blush[400]} style={styles.sectionIcon} />
         <Heading size="md">Share your code</Heading>
         <Body size="sm" color="secondary" style={styles.sectionText}>
           Generate a unique code and share it with your partner
         </Body>
         
         {!user.coupleCode ? (
-          <SoftButton
-            title="Generate code"
-            onPress={handleGenerateCode}
-            style={styles.generateButton}
-          />
+          <TouchableOpacity style={styles.generateButton} onPress={handleGenerateCode}>
+            <Text style={styles.generateButtonText}>Generate code</Text>
+          </TouchableOpacity>
         ) : (
           <TouchableOpacity 
             style={styles.codeDisplay}
@@ -143,7 +140,7 @@ export const CoupleSyncScreen = () => {
               {user.coupleCode}
             </Heading>
             <Body size="xs" color="muted">
-              {showCopied ? 'Copied! ✓' : 'Tap to copy'}
+              {showCopied ? 'Copied!' : 'Tap to copy'}
             </Body>
           </TouchableOpacity>
         )}
@@ -159,7 +156,7 @@ export const CoupleSyncScreen = () => {
       {/* Enter Code Section */}
       
       <PaperCard style={styles.codeCard}>
-        <Text style={styles.sectionEmoji}>📥</Text>
+        <Icons name="check" size={32} color={colors.blush[400]} style={styles.sectionIcon} />
         <Heading size="md">Enter partner code</Heading>
         
         <Body size="sm" color="secondary" style={styles.sectionText}>
@@ -176,17 +173,19 @@ export const CoupleSyncScreen = () => {
           maxLength={6}
         />
         
-        <SoftButton
-          title="Connect"
+        <TouchableOpacity 
+          style={[styles.connectButton, partnerCode.length !== 6 && styles.connectButtonDisabled]}
           onPress={handleConnect}
           disabled={partnerCode.length !== 6}
-        />
+        >
+          <Text style={styles.connectButtonText}>Connect</Text>
+        </TouchableOpacity>
       </PaperCard>
       
       {/* Info */}
       
       <PaperCard style={styles.infoCard}>
-        <Text style={styles.infoEmoji}>🔒</Text>
+        <Icons name="shield" size={20} color={colors.text.muted} />
         <Body size="xs" color="muted" style={styles.infoText}>
           Your data stays private. Connecting allows you to share 
           timelines and insights. You control what's visible.
@@ -215,8 +214,7 @@ const styles = StyleSheet.create({
     padding: spacing.lg,
     alignItems: 'center',
   },
-  sectionEmoji: {
-    fontSize: 32,
+  sectionIcon: {
     marginBottom: spacing.md,
   },
   sectionText: {
@@ -226,6 +224,15 @@ const styles = StyleSheet.create({
   },
   generateButton: {
     width: '100%',
+    backgroundColor: colors.blush[200],
+    borderRadius: radii.lg,
+    paddingVertical: spacing.md,
+    alignItems: 'center',
+  },
+  generateButtonText: {
+    fontFamily: fonts.semibold,
+    fontSize: typography.sizes.base,
+    color: colors.text.primary,
   },
   codeDisplay: {
     backgroundColor: colors.cream[200],
@@ -251,9 +258,8 @@ const styles = StyleSheet.create({
     marginHorizontal: spacing.md,
   },
   codeInput: {
-    fontFamily: typography.fonts.heading,
+    fontFamily: fonts.bold,
     fontSize: typography.sizes['2xl'],
-    fontWeight: typography.weights.bold,
     color: colors.text.primary,
     textAlign: 'center',
     letterSpacing: 8,
@@ -264,6 +270,21 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
     width: '100%',
   },
+  connectButton: {
+    width: '100%',
+    backgroundColor: colors.blush[200],
+    borderRadius: radii.lg,
+    paddingVertical: spacing.md,
+    alignItems: 'center',
+  },
+  connectButtonDisabled: {
+    backgroundColor: colors.cream[300],
+  },
+  connectButtonText: {
+    fontFamily: fonts.semibold,
+    fontSize: typography.sizes.base,
+    color: colors.text.primary,
+  },
   infoCard: {
     margin: spacing.md,
     padding: spacing.md,
@@ -271,9 +292,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: spacing.md,
     backgroundColor: colors.cream[100],
-  },
-  infoEmoji: {
-    fontSize: 20,
   },
   infoText: {
     flex: 1,
@@ -284,8 +302,7 @@ const styles = StyleSheet.create({
     padding: spacing.xl,
     alignItems: 'center',
   },
-  bigEmoji: {
-    fontSize: 64,
+  bigIcon: {
     marginBottom: spacing.md,
   },
   connectedTitle: {
@@ -307,19 +324,12 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.sm,
     gap: spacing.md,
   },
-  featureEmoji: {
-    fontSize: 20,
-    width: 32,
-  },
   privacyCard: {
     margin: spacing.md,
     padding: spacing.md,
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.md,
-  },
-  privacyEmoji: {
-    fontSize: 20,
   },
   privacyText: {
     flex: 1,
@@ -331,6 +341,18 @@ const styles = StyleSheet.create({
   },
   disconnectText: {
     marginBottom: spacing.md,
+  },
+  disconnectButton: {
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.md,
+    borderRadius: radii.lg,
+    borderWidth: 1,
+    borderColor: colors.text.muted,
+  },
+  disconnectButtonText: {
+    fontFamily: fonts.regular,
+    fontSize: typography.sizes.sm,
+    color: colors.text.secondary,
   },
   bottomPadding: {
     height: 40,

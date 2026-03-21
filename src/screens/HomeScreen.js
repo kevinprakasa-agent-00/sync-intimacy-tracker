@@ -52,6 +52,23 @@ export default function HomeScreen() {
             <Text style={styles.logButtonText}>Log Moment</Text>
           </View>
         </TouchableOpacity>
+
+        {/* Spice Things Up - Yes/No/Maybe Deck */}
+        <TouchableOpacity 
+          style={styles.deckButton}
+          onPress={() => navigation.navigate('YesNoMaybeDeck')}
+        >
+          <View style={styles.deckButtonContent}>
+            <View style={styles.deckIconContainer}>
+              <Icons name="sparkles" size={24} color={colors.text.primary} />
+            </View>
+            <View style={styles.deckTextContainer}>
+              <Text style={styles.deckButtonTitle}>Spice Things Up</Text>
+              <Text style={styles.deckButtonSubtitle}>Discover new ideas together</Text>
+            </View>
+            <Icons name="chevronRight" size={20} color={colors.text.muted} />
+          </View>
+        </TouchableOpacity>
         
       </ScrollView>
     </View>
@@ -130,5 +147,40 @@ const styles = StyleSheet.create({
     fontSize: typography.sizes.md,
     fontFamily: fonts.semibold,
     color: colors.text.primary,
+  },
+  // Spice Things Up Button
+  deckButton: {
+    backgroundColor: colors.peach[200],
+    borderRadius: radii.lg,
+    padding: spacing.md,
+    marginTop: spacing.md,
+    ...shadows.soft,
+  },
+  deckButtonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
+  },
+  deckIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: radii.md,
+    backgroundColor: colors.surface,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deckTextContainer: {
+    flex: 1,
+  },
+  deckButtonTitle: {
+    fontSize: typography.sizes.md,
+    fontFamily: fonts.semibold,
+    color: colors.text.primary,
+    marginBottom: spacing.xs,
+  },
+  deckButtonSubtitle: {
+    fontSize: typography.sizes.sm,
+    fontFamily: fonts.regular,
+    color: colors.text.secondary,
   },
 });

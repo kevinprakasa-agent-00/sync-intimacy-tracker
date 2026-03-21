@@ -17,6 +17,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import TimelineScreen from './src/screens/TimelineScreen';
 import InsightsScreen from './src/screens/InsightsScreen';
 import LogMomentScreen from './src/screens/LogMomentScreen';
+import YesNoMaybeDeckScreen from './src/screens/YesNoMaybeDeckScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -115,6 +116,11 @@ export default function App() {
           <Stack.Screen 
             name="LogMoment" 
             component={LogMomentScreen}
+            options={{ presentation: 'modal' }}
+          />
+          <Stack.Screen 
+            name="YesNoMaybeDeck" 
+            component={YesNoMaybeDeckScreen}
             options={{ presentation: 'modal' }}
           />
         </Stack.Navigator>

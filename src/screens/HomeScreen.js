@@ -53,22 +53,44 @@ export default function HomeScreen() {
           </View>
         </TouchableOpacity>
 
-        {/* Spice Things Up - Yes/No/Maybe Deck */}
-        <TouchableOpacity 
-          style={styles.deckButton}
-          onPress={() => navigation.navigate('YesNoMaybeDeck')}
-        >
-          <View style={styles.deckButtonContent}>
-            <View style={styles.deckIconContainer}>
-              <Icons name="sparkles" size={24} color={colors.text.primary} />
+        {/* Spice Things Up Section */}
+        <View style={styles.spiceSection}>
+          <Text style={styles.spiceSectionTitle}>Spice Things Up</Text>
+          
+          {/* Tonight's Idea - Random Generator */}
+          <TouchableOpacity 
+            style={styles.ideaButton}
+            onPress={() => navigation.navigate('TonightsIdea')}
+          >
+            <View style={styles.ideaButtonContent}>
+              <View style={[styles.ideaIconContainer, { backgroundColor: colors.blush[100] }]}>
+                <Icons name="zap" size={24} color={colors.blush[400]} />
+              </View>
+              <View style={styles.ideaTextContainer}>
+                <Text style={styles.ideaButtonTitle}>Tonight's Idea</Text>
+                <Text style={styles.ideaButtonSubtitle}>Get a random suggestion instantly</Text>
+              </View>
+              <Icons name="chevronRight" size={20} color={colors.text.muted} />
             </View>
-            <View style={styles.deckTextContainer}>
-              <Text style={styles.deckButtonTitle}>Spice Things Up</Text>
-              <Text style={styles.deckButtonSubtitle}>Discover new ideas together</Text>
+          </TouchableOpacity>
+
+          {/* Browse All Cards */}
+          <TouchableOpacity 
+            style={[styles.ideaButton, { marginTop: spacing.sm }]}
+            onPress={() => navigation.navigate('YesNoMaybeDeck')}
+          >
+            <View style={styles.ideaButtonContent}>
+              <View style={[styles.ideaIconContainer, { backgroundColor: colors.peach[100] }]}>
+                <Icons name="sparkles" size={24} color={colors.peach[400]} />
+              </View>
+              <View style={styles.ideaTextContainer}>
+                <Text style={styles.ideaButtonTitle}>Browse All Cards</Text>
+                <Text style={styles.ideaButtonSubtitle}>30 ideas to explore together</Text>
+              </View>
+              <Icons name="chevronRight" size={20} color={colors.text.muted} />
             </View>
-            <Icons name="chevronRight" size={20} color={colors.text.muted} />
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
         
       </ScrollView>
     </View>
@@ -148,37 +170,46 @@ const styles = StyleSheet.create({
     fontFamily: fonts.semibold,
     color: colors.text.primary,
   },
-  // Spice Things Up Button
-  deckButton: {
-    backgroundColor: colors.peach[200],
+  // Spice Things Up Section
+  spiceSection: {
+    marginTop: spacing.lg,
+  },
+  spiceSectionTitle: {
+    fontSize: typography.sizes.sm,
+    fontFamily: fonts.medium,
+    color: colors.text.muted,
+    marginBottom: spacing.md,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+  ideaButton: {
+    backgroundColor: colors.card,
     borderRadius: radii.lg,
     padding: spacing.md,
-    marginTop: spacing.md,
     ...shadows.soft,
   },
-  deckButtonContent: {
+  ideaButtonContent: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.md,
   },
-  deckIconContainer: {
+  ideaIconContainer: {
     width: 48,
     height: 48,
     borderRadius: radii.md,
-    backgroundColor: colors.surface,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  deckTextContainer: {
+  ideaTextContainer: {
     flex: 1,
   },
-  deckButtonTitle: {
+  ideaButtonTitle: {
     fontSize: typography.sizes.md,
     fontFamily: fonts.semibold,
     color: colors.text.primary,
     marginBottom: spacing.xs,
   },
-  deckButtonSubtitle: {
+  ideaButtonSubtitle: {
     fontSize: typography.sizes.sm,
     fontFamily: fonts.regular,
     color: colors.text.secondary,

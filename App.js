@@ -18,6 +18,7 @@ import TimelineScreen from './src/screens/TimelineScreen';
 import InsightsScreen from './src/screens/InsightsScreen';
 import LogMomentScreen from './src/screens/LogMomentScreen';
 import YesNoMaybeDeckScreen from './src/screens/YesNoMaybeDeckScreen';
+import TonightsIdeaScreen from './src/screens/TonightsIdeaScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -121,6 +122,11 @@ export default function App() {
           <Stack.Screen 
             name="YesNoMaybeDeck" 
             component={YesNoMaybeDeckScreen}
+            options={{ presentation: 'modal' }}
+          />
+          <Stack.Screen 
+            name="TonightsIdea" 
+            component={TonightsIdeaScreen}
             options={{ presentation: 'modal' }}
           />
         </Stack.Navigator>
